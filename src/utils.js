@@ -1,5 +1,3 @@
-import { TARGET_DATE } from './constants';
-
 const storage = {
   set: async (key, values) => {
     await chrome?.storage.local.set({

@@ -56,38 +56,58 @@ function handleOtherAction() {
 }
 
 // Step1: Start
-async function autoRetryCourses() {
-  const container = document.querySelectorAll('tr');
-  if (container) {
-    container.forEach(async (container) => {
-      const dateElement = container.querySelector('p.pr-frist-text');
-      if (!dateElement) return false;
-      const textDate = dateElement.innerText;
-      const firstDateMatch = textDate.match(/^\d{2}\.\d{2}\.\d{4}/);
-      const firstDateString = firstDateMatch ? firstDateMatch[0] : null;
-      const persistDateBooking = await chrome.storage.local.get(
-        'dateBookingForm'
-      );
-      console.log('new date', persistDateBooking);
-      const computedDate = persistDateBooking?.dateBookingForm?.date
-        ?.split('-')
-        ?.reverse()
-        ?.join('.');
-      const currentDateBooking = computedDate || TARGET_DATE;
-      const isOpen = isOpenOrderDay(firstDateString, currentDateBooking);
-      if (!isOpen) return false;
-      console.log('textDay', { firstDateString, isOpen });
-      const button = container.querySelector('button');
-      if (button && !button.disabled) {
-        button.click();
-        console.log('clicked');
-        await storage.set('step', 'completed');
-        isClicked = true;
-        return true;
-      }
-    });
-  }
 
+function handleNextPage() {
+  const currentPage = document.querySelector('.paginierung .aktuelleSeite');
+  if (currentPage) {
+    const currentPageNumber = parseInt(currentPage.textContent);
+    if (currentPageNumber === 1) {
+      const links = document.querySelectorAll('.paginierung a');
+      links.forEach((link) => {
+        const href = link.getAttribute('href');
+        const text = link.textContent;
+        console.log({ href });
+        if (href && href.startsWith('javascript:') && text === '2') {
+          link.click();
+          console.log('clicked');
+        }
+      });
+    }
+  }
+}
+async function autoRetryCourses() {
+  // const container = document.querySelectorAll('tr');
+  // if (container) {
+  //   container.forEach(async (container) => {
+  //     const dateElement = container.querySelector('p.pr-frist-text');
+  //     if (!dateElement) return false;
+  //     const textDate = dateElement.innerText;
+  //     const firstDateMatch = textDate.match(/^\d{2}\.\d{2}\.\d{4}/);
+  //     const firstDateString = firstDateMatch ? firstDateMatch[0] : null;
+  //     const persistDateBooking = await chrome.storage.local.get(
+  //       'dateBookingForm'
+  //     );
+  //     console.log('new date', persistDateBooking);
+  //     const computedDate = persistDateBooking?.dateBookingForm?.date
+  //       ?.split('-')
+  //       ?.reverse()
+  //       ?.join('.');
+  //     const currentDateBooking = computedDate || TARGET_DATE;
+  //     const isOpen = isOpenOrderDay(firstDateString, currentDateBooking);
+  //     if (!isOpen) return false;
+  //     console.log('textDay', { firstDateString, isOpen });
+  //     const button = container.querySelector('button');
+  //     if (button && !button.disabled) {
+  //       button.click();
+  //       console.log('clicked');
+  //       await storage.set('step', 'completed');
+  //       isClicked = true;
+  //       return true;
+  //     }
+  //   });
+  // }
+
+  handleNextPage();
   // handleAddScript();
 
   //** Handle auto go to next page */

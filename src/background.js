@@ -1,26 +1,3 @@
-chrome.action.onClicked.addListener((tab) => {
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: function () {
-      console.log('excluded');
-      const currentPage = document.querySelector('.paginierung .aktuelleSeite');
-
-      if (currentPage) {
-        const currentPageNumber = parseInt(currentPage.textContent);
-
-        if (currentPageNumber === 1) {
-          const links = document.querySelectorAll('.paginierung a');
-          links.forEach((link) => {
-            const href = link.getAttribute('href');
-            if (href && href.startsWith('javascript:getData_7629592')) {
-              link.click();
-            }
-          });
-        }
-      }
-    },
-  });
-});
 function setDailyAlarm(dateTimeString) {
   if (!dateTimeString) return;
   const now = new Date();

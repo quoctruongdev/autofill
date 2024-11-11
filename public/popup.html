@@ -2,10 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
+    <!-- <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self' data: gap: https://www.goethe.de 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"
-    />
+    /> -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-random123';">
     <title>My Chrome Extension</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
@@ -15,20 +16,26 @@
         <label class="label">Select the user stored data</label>
         <select class="input" name="form" id="formSelect"></select>
       </form>
-   
+
       <form id="date-form">
         <label for="datetime">Select Date Booking</label>
         <input class="input" type="date" id="date" name="date" required />
       </form>
-        <form id="datetime-form">
-          <label for="datetime">Select Date and Time Alarm:</label>
-          <input class="input" type="datetime-local" id="datetime" name="datetime" required />
-        </form>
+      <form id="datetime-form">
+        <label for="datetime">Select Date and Time Alarm:</label>
+        <input
+          class="input"
+          type="datetime-local"
+          id="datetime"
+          name="datetime"
+          required
+        />
+      </form>
       <div class="button-container">
         <button
           style="margin-bottom: 10px"
           class="button"
-          id="setDateBoking"
+          id="setDateBooking"
           type="submit"
         >
           Set Date Booking
@@ -46,11 +53,9 @@
         <button type="button" id="startAutoClick" class="button">Start</button>
         <button type="button" class="button" id="stopAutoClick">Stop</button>
       </div>
-      <button type="button" class="button" id="yourButton">yourButton</button>
+      <button type="button" class="button" id="nextPage">Next Page</button>
       <script src="popup.js" defer></script>
-      <script nonce="rAnd0m" src="contentScript.js" defer>
-
-      </script>
+      <script  nonce="random123" src="contentScript.js" defer></script>
     </div>
   </body>
 </html>

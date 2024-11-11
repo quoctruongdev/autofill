@@ -1,7 +1,7 @@
 'use strict';
 import './popup.css';
 import { informationUsers } from './constants';
-import { sleep, storage } from './utils';
+import { storage } from './utils';
 
 (function () {
   async function populateSelectOptions() {
@@ -108,6 +108,32 @@ import { sleep, storage } from './utils';
       }
     );
   }
+
+  function handleNexPage() {
+    console.log('handleNexPage');
+    // const currentPage = document.querySelector('.paginierung .aktuelleSeite');
+    // console.log('handleNexPage', { currentPage });
+
+    // if (currentPage) {
+    //   const currentPageNumber = parseInt(currentPage.textContent);
+    //   console.log('handleNexPage', { currentPageNumber });
+
+    //   if (currentPageNumber === 1) {
+    //     const links = document.querySelectorAll('.paginierung a');
+    //     links.forEach((link) => {
+    //       const href = link.getAttribute('href');
+    //       if (href && href.startsWith('javascript:')) {
+    //         link.click();
+    //       }
+    //     });
+    //   }
+    // }
+    // chrome.scripting.executeScript({
+    //   target: { tabId: tabs[0].id },
+
+    // });
+    // });
+  }
   document
     .getElementById('startAutoClick')
     .addEventListener('click', handleAutoSelectCourses);
@@ -118,48 +144,8 @@ import { sleep, storage } from './utils';
     .getElementById('setAlarm')
     .addEventListener('click', sendDataToBackground);
   document
-    .getElementById('setDateBoking')
+    .getElementById('setDateBooking')
     .addEventListener('click', getFormDataBooking);
 
-  function setYourButton() {
-    console.log('yourButton');
-    const currentPage = document.querySelector('.paginierung .aktuelleSeite');
-    if (currentPage) {
-      const currentPageNumber = parseInt(currentPage.textContent);
-      if (currentPageNumber === 1) {
-        const links = document.querySelectorAll('.paginierung a');
-        links.forEach((link) => {
-          const href = link.getAttribute('href');
-          if (href && href.startsWith('javascript:')) {
-            link.click();
-          }
-        });
-      }
-    }
-    // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    //   chrome.scripting.executeScript({
-    //     target: { tabId: tabs[0].id },
-    //     func: function () {
-    //       const currentPage = document.querySelector(
-    //         '.paginierung .aktuelleSeite'
-    //       );
-    //       if (currentPage) {
-    //         const currentPageNumber = parseInt(currentPage.textContent);
-    //         if (currentPageNumber === 1) {
-    //           const links = document.querySelectorAll('.paginierung a');
-    //           links.forEach((link) => {
-    //             const href = link.getAttribute('href');
-    //             if (href && href.startsWith('javascript:')) {
-    //               link.click();
-    //             }
-    //           });
-    //         }
-    //       }
-    //     },
-    //   });
-    // });
-  }
-  document
-    .getElementById('yourButton')
-    .addEventListener('click', setYourButton);
+  document.getElementById('nextPage').addEventListener('click', handleNexPage);
 })();

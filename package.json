@@ -22,7 +22,10 @@
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
+    "chromedriver": "^130.0.4",
     "codeflask": "^1.4.1",
-    "prismjs": "^1.29.0"
+    "prismjs": "^1.29.0",
+    "puppeteer": "^23.7.1",
+    "selenium-webdriver": "^4.26.0"
   }
 }
