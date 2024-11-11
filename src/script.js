@@ -1,18 +1,31 @@
-const paginierung = document.getElementById('paginierung_7629592');
+const paginierung = document.querySelector('div.paginierung');
 console.log({ paginierung, document });
-const aElement = paginierung ? paginierung.querySelector('a') : null;
-if (aElement) {
-  const clickEvent = new MouseEvent('click', {
-    bubbles: true,
-  });
-  aElement.dispatchEvent(clickEvent);
-}
+const aElements = paginierung ? paginierung.querySelectorAll('a') : null;
+if (!aElements) return;
+console.log('aElement', aElements);
+aElements.forEach((element) => {
+  const href = element.href;
+  const text = element.textContent;
+  const page = new URL(window.location.href).searchParams.get('page') || '2';
+  console.log('href', href, text, { page });
+  if (element && href && text == page) {
+    const clickEvent = new MouseEvent('click', {
+      bubbles: true,
+    });
+    element.dispatchEvent(clickEvent);
+  }
+});
+
 console.log('script.js is running');
-// alert('running');
-// setTimeout(() => {
-//   // Chạy hàm điều hướng trang tiếp theo, giả sử là `getData_7629592`
-//   console.log('123123123');
-//   if (typeof getData_7629592 === 'function') {
-//     getData_7629592(11); // Chuyển đến trang có số `11` hoặc số trang khác bạn muốn
+// const levelList = document.querySelector('.pr-level-select');
+// if (levelList) {
+//   const youngPeopleLink = levelList.querySelector('li#level_select_20 a'); // DOM tới phần tử chứa "Young people"
+
+//   // Kiểm tra nếu phần tử tồn tại và tự động click vào nó
+//   if (youngPeopleLink) {
+//     youngPeopleLink.click();
+//     console.log('Đã chuyển sang Young people');
+//   } else {
+//     console.log('Không tìm thấy liên kết tới Young people.');
 //   }
-// }, 5000);
+// }

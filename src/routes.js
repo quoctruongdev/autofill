@@ -10,7 +10,7 @@ const routes = {
   login: ['login.goethe.de/cas/login'],
   childAccount: ['https://www.goethe.de/coe/child-acc'],
   voucher: ['https://www.goethe.de/coe/voucher'],
-  selections: ['https://www.goethe.de/coe/psp-selection'],
+  // selections: ['https://www.goethe.de/coe/psp-selection'],
   summary: ['https://www.goethe.de/coe/summary'],
 };
 

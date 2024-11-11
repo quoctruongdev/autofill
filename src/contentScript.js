@@ -10,7 +10,7 @@ let isClicked = false;
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   console.log({ request });
   if (request.type === 'START_AUTO_CLICK') {
-    isAutoClick = true;
+    let isAutoClick = true;
     if (!isAutoClick) return;
     console.log('START_AUTO_CLICK', { isAutoClick });
     if (routes.selectModule.includes(currentUrl) && !isClicked) {
@@ -84,6 +84,9 @@ async function autoRetryCourses() {
         await storage.set('step', 'completed');
         isClicked = true;
         return true;
+      } else {
+        await storage.set('step', 'retry');
+        // window.location.reload();
       }
     });
   }
@@ -106,12 +109,13 @@ async function autoRetryCourses() {
 async function handleSelectCourses() {
   await autoRetryCourses();
   console.log('before retry', { isClicked });
-  let timerRetry = setTimeout(async () => {
+  let timerRetry = setTimeout(() => {
     if (!isClicked && isAutoClick) {
       handleSelectCourses();
+      window.location.reload();
       console.log('retry in', { isClicked });
     }
-  }, 300);
+  }, 1000);
   if (isClicked) {
     console.log('allDisabled clearTimeout', isClicked);
     return clearTimeout(timerRetry);
@@ -148,7 +152,7 @@ async function handleSelectOptions() {
       const id = element.getAttribute('id').trim();
       console.log(id);
       if (id && !element.disabled) {
-        if (!userInfo.skills.includes(id)) {
+        if (userInfo && !userInfo.skills.includes(id)) {
           element.checked = true;
           element.click();
         }
@@ -163,10 +167,12 @@ function handleSelections() {
   const buttonWrapper = document.querySelector('.cs-layer__button-wrapper');
   if (buttonWrapper) {
     const buttons = buttonWrapper.querySelectorAll('button');
+
+    console.log({ buttons });
     buttons.forEach((btn) => {
-      if (btn.innerText.includes('BOOK FOR MYSELF')) {
+      if (btn.innerText.includes('BOOK FOR MY CHILD')) {
         btn.click();
-        console.log("Clicked 'BOOK FOR MYSELF'");
+        console.log("Clicked 'BOOK FOR MY CHILD'");
         localStorage.setItem('currentStep', '4');
       }
     });
@@ -327,6 +333,7 @@ async function handleAllDataForChild() {
   handleSelectNewChild();
   handlePersonalData();
   const feilds = document.querySelector('div.cs-input.cs-input--birth-selects');
+  if (!feilds) return;
   const containers = feilds.querySelectorAll('div.cs-html-select');
   async function selectBirthday() {
     if (step === 0) {
@@ -338,7 +345,7 @@ async function handleAllDataForChild() {
       console.log('step in selectYear', step);
       const selectValue = `${year}`;
       selectYear(menuYearsItems, selectValue);
-      await sleep(2000);
+      await sleep(1000);
       step = 1;
       const selectedValue = buttonYear.title;
       console.log({ selectValue, selectedValue });
@@ -357,7 +364,7 @@ async function handleAllDataForChild() {
       const selectValue = `${month}`;
       // selectMonth(menuMonthItems, selectValue);
       selectMonth(menuMonthItems, month);
-      await sleep(2000);
+      await sleep(1000);
       step = 2;
       // const date = new Date('2024', Number(month) - 1, 1);
       // console.log({ date });
@@ -377,7 +384,7 @@ async function handleAllDataForChild() {
       );
       const selectValue = `${day}`;
       selectDate(menuDayItems, selectValue);
-      await sleep(2000);
+      await sleep(1000);
       step = 3;
       // if (selectValue === buttonDate.title) {
       //   step = 3;
@@ -423,12 +430,12 @@ window.addEventListener('load', async () => {
   const stepStatus = await storage.get('step');
   console.log('stepStatus', stepStatus);
   const currentUrl = window.location.href;
-  if (stepStatus === 'retry' && routes.selectModule.includes(currentUrl)) {
+  if (stepStatus !== 'completed' && routes.selectModule.includes(currentUrl)) {
     console.log('Retrying step after reload...');
     handleSelectCourses();
   }
   if (isAutoClick && stepStatus === 'completed') {
-    console.log(' setInterval(handleOtherAction, 2000)', {
+    console.log(' setInterval(handleOtherAction, 1000)', {
       isAutoClick,
       isClicked,
     });
