@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' data: gap: https://www.goethe.de 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"
+    />
+    <title>My Chrome Extension</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form>
+        <label class="label">Select the user stored data</label>
+        <select class="input" name="form" id="formSelect"></select>
+      </form>
+   
+      <form id="date-form">
+        <label for="datetime">Select Date Booking</label>
+        <input class="input" type="date" id="date" name="date" required />
+      </form>
+        <form id="datetime-form">
+          <label for="datetime">Select Date and Time Alarm:</label>
+          <input class="input" type="datetime-local" id="datetime" name="datetime" required />
+        </form>
+      <div class="button-container">
+        <button
+          style="margin-bottom: 10px"
+          class="button"
+          id="setDateBoking"
+          type="submit"
+        >
+          Set Date Booking
+        </button>
+        <button
+          style="margin-bottom: 10px"
+          class="button"
+          id="setAlarm"
+          type="submit"
+        >
+          Set Alarm
+        </button>
+      </div>
+      <div class="button-container">
+        <button type="button" id="startAutoClick" class="button">Start</button>
+        <button type="button" class="button" id="stopAutoClick">Stop</button>
+      </div>
+      <script src="popup.js" defer></script>
+      <script nonce="rAnd0m" src="contentScript.js" defer>
+
+      </script>
+    </div>
+  </body>
+</html>
