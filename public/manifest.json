@@ -21,7 +21,8 @@
     "activeTab",
     "unlimitedStorage",
     "alarms",
-    "notifications"
+    "notifications",
+    "scripting"
   ],
   "host_permissions": ["http://*/*", "https://*/*"],
   "content_scripts": [
@@ -29,6 +30,12 @@
       "matches": ["<all_urls>"],
       "run_at": "document_start",
       "js": ["contentScript.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["script.js"],
+      "matches": ["<all_urls>"]
     }
   ]
 }

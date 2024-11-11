@@ -100,15 +100,6 @@ async function autoRetryCourses() {
   //   aElement.dispatchEvent(clickEvent);
   // }
 
-  // chrome.scripting.executeScript({
-  //   target: { tabId: yourTabId },
-  //   func: () => {
-  //     const script = document.createElement('script');
-  //     script.textContent = 'getData_7629592(11);';
-  //     document.documentElement.appendChild(script);
-  //     script.remove();
-  //   },
-  // });
   return false;
 }
 
@@ -422,6 +413,13 @@ async function handleAllDataForChild() {
 
 //Auto actions
 window.addEventListener('load', async () => {
+  var s = document.createElement('script');
+  s.src = chrome.runtime.getURL('script.js');
+  s.onload = function () {
+    this.remove();
+  };
+  // see also "Dynamic values in the injected code" section in this answer
+  (document.head || document.documentElement).appendChild(s);
   const stepStatus = await storage.get('step');
   console.log('stepStatus', stepStatus);
   const currentUrl = window.location.href;
