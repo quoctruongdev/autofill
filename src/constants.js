@@ -1,9 +1,28 @@
+const TARGET_DATE = '11.11.2024';
+const DEFAULT_EMAIL = 'quoctruong.job.sim@gmail.com';
+const DEFAULT_PASSWORD = 'Test@123456';
+
+const loginInfo = [
+  {
+    email: 'tqt.ntml@gmail.com',
+    password: 'Leaimy@1990',
+  },
+  {
+    email: 'quoctruong.job.sim@gmail.com',
+    password: 'Test@123456',
+  },
+  {
+    email: 'quoctruong.dev.job@gmail.com',
+    password: '123456a@A',
+  },
+];
 const skills = {
   READING: 'reading',
   LISTENING: 'listening',
   SPEAKING: 'speaking',
   WRITING: 'writing',
 };
+
 const informationUsers = [
   {
     id: 1,
@@ -178,13 +197,11 @@ const informationUsers = [
   },
 ];
 
-const TARGET_DATE = '11.11.2024';
-const DEFAULT_EMAIL = 'quoctruong.job.sim@gmail.com';
-const DEFAULT_PASSWORD = 'Test@123456';
 export {
   skills,
   informationUsers,
   TARGET_DATE,
   DEFAULT_EMAIL,
   DEFAULT_PASSWORD,
+  loginInfo,
 };
