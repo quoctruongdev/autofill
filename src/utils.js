@@ -56,7 +56,9 @@ function parseDate(dateString) {
 }
 
 function goBack() {
-  window.history.go(-1);
+  window.location.replace(
+    'https://www.goethe.de/ins/vn/en/sta/han/prf/gzb1.cfm'
+  );
 }
 
 export { storage, sleep, parseDate, goBack, isOpenOrderDay };

@@ -1,6 +1,4 @@
-const TARGET_DATE = '11.11.2024';
-const DEFAULT_EMAIL = 'quoctruong.job.sim@gmail.com';
-const DEFAULT_PASSWORD = 'Test@123456';
+const TARGET_DATE = '14.11.2024';
 
 const loginInfo = [
   {
@@ -16,6 +14,9 @@ const loginInfo = [
     password: '123456a@A',
   },
 ];
+
+const DEFAULT_EMAIL = loginInfo[2].email;
+const DEFAULT_PASSWORD = loginInfo[2].password;
 const skills = {
   READING: 'reading',
   LISTENING: 'listening',

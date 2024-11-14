@@ -6,7 +6,6 @@ import { DEFAULT_EMAIL, DEFAULT_PASSWORD, TARGET_DATE } from './constants';
 const currentUrl = window.location.href;
 let isAutoClick = true;
 let isClicked = false;
-
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   console.log({ request });
   if (request.type === 'START_AUTO_CLICK') {
@@ -28,14 +27,6 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   });
   return true;
 });
-
-// function handleAddScript() {
-//   console.log('handleAddScript');
-//   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-//     if (tabs.length === 0) return;
-//     const tab = tabs[0];
-//   });
-// }
 
 function handleOtherAction() {
   const routeHandlers = {
